@@ -35,7 +35,7 @@ jobs:
       - name: Push test another repository in github engn(dmnemec)
         uses: dmnemec/copy_file_to_another_repo_action@main
         env:
-          API_TOKEN_GITHUB: ${{ secrets.GITHUB_TOKEN }}
+          API_TOKEN_GITHUB: ${{ secrets.GH_MVN_REPO_USER_INFO }}
         with:
           source_file: was-dist/target/lat-work/
           destination_repo: 'ATLENA/lat-engine'
