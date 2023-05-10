@@ -40,8 +40,8 @@ jobs:
           source_file: was-dist/target/lat-work/
           destination_repo: 'ATLENA/lat-engine'
           destination_folder: './' # optional
-          user_email: 'seosej@gmail.com '# your email
-          user_name: 'Sejin Seo'           # your login
+          #user_email: 'seosej@gmail.com '# your email
+          #user_name: 'Sejin Seo'           # your login
           commit_message: 'New version released'
 
 
