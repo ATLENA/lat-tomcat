@@ -24,7 +24,7 @@ jobs:
           servers: ${{secrets.GH_MVN_REPO_USER_INFO}}
       # packaging project
       - name: Build with Maven
-        run: mvn -P tomcat9 -B package --file was-dist/pom.xml
+        run: mvn -P tomcat9 -B package --file was-dist/pom_release.xml
       # get project version
       - name: Bump Version
         id: get-version
@@ -37,7 +37,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
-          source_file: was-dist/target/lat-work/*.tar.gz
+          source_file: was-dist/target/lat-work/tomcat/
           destination_repo: ATLENA/lat-engine
           destination_folder: ./
           user_email: 'seosej@gmail.com '
