@@ -1,4 +1,4 @@
-name: Build Web Application Server
+name: Build Web Application Server and release
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -39,7 +39,7 @@ jobs:
         with:
           source_file: was-dist/target/lat-work/
           destination_repo: 'ATLENA/lat-engine'
-          destination_folder: './tomcat/engine' # optional
+          destination_folder: './' # optional
           user_email: 'tykim0123@lgcns.com '# your email
           user_name: 'YoungK'           # your login
           commit_message: 'New version released'
