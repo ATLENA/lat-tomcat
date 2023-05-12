@@ -7,5 +7,6 @@ SCRIPT=$SCRIPTPATH/$(basename $0)
 if [ "`uname -s`" = "HP-UX" ]; then
 	ps -efx|grep java|grep was_cname=${INST_NAME}
 else
-	ps -ef|grep bin/java|grep "catalina.home=${CATALINA_HOME} "
+	#ps -ef|grep bin/java|grep "catalina.home=${CATALINA_HOME} "
+        ps -ef|grep bin/java|grep "catalina.base=${CATALINA_BASE} "
 fi
