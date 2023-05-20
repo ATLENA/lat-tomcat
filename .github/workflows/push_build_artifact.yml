@@ -43,6 +43,19 @@ jobs:
           user_email: 'seosej@gmail.com '
           user_name: 'Sejin Seo'
           commit_message: New version released
+      - uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: ${{ secrets.GIT_CREDENTIALS }}
+      - name: git push
+        run: |
+          rm -rf /tmp/tomcat-test
+          mkdir -p /tmp/tomcat-test
+          git clone https://github.com/ATLENA/lat-engine.git /tmp/tomcat-temp
+          git config --global user.email "seosej@gmail.com"
+          git config --global user.name "seosej"
+          mkdir -p /tmp/tomcat-temp/tomcat
+          cp -rf was-dist/target/tomcat/* /tmp/tomcat-temp/tomcat/      
+          cd /tmp/tomcat-temp && git add . && git commit -a -m "Pushed from lat-tomcat" && git push
 #
 #
 #
