@@ -31,18 +31,6 @@ jobs:
         uses: nnichols/maven-version-bump-action@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push test another repository in github engn(dmnemec)
-        uses: dmnemec/copy_file_to_another_repo_action@main
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source_file: was-dist/target/tomcat/
-          destination_repo: ATLENA/lat-engine
-          destination_folder: ./
-          user_email: 'seosej@gmail.com '
-          user_name: 'Sejin Seo'
-          commit_message: New version released
       - uses: de-vri-es/setup-git-credentials@v2
         with:
           credentials: ${{ secrets.GIT_CREDENTIALS }}
