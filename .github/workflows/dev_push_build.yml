@@ -1,11 +1,11 @@
 name: '[ Dev / PR ] Build LA:T Web Application Server'
-on:
-  pull_request:
-    branches:
-      - 'master'
-  push:
-    branches:
-      - 'dev/**'
+#on:
+#  pull_request:
+#    branches:
+#      - 'master'
+#  push:
+#    branches:
+#      - 'dev/**'
 jobs:
   build:
     name: Build
