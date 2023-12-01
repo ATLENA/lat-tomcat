@@ -5,6 +5,9 @@ export JAVA_HOME=/usr/bin/java
 export LAT_HOME=/apps/lat/1.0.0
 export INSTANCE_ID=lat
 export SERVICE_PORT=7000
+export HTTPS_SERVICE_PORT=`expr ${SERVICE_PORT} + 363`
+export AJP_PORT=`expr ${SERVICE_PORT} - 71`
+export SHUTDOWN_PORT=`expr ${SERVICE_PORT} - 75`
 export INSTALL_PATH=/apps/lat/1.0.0/instances/lat-was-8080
 export RUN_USER=tomcat
 export DATE=`date +%Y%m%d-%H%M%S`
@@ -58,9 +61,9 @@ JAVA_OPTS=" ${JAVA_OPTS} -server"
 JAVA_OPTS=" ${JAVA_OPTS} -DjvmRoute=${JVM_ROUTE}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dwas_cname=${INST_NAME}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dport.http=${SERVICE_PORT}"
-JAVA_OPTS=" ${JAVA_OPTS} -Dport.https=`expr ${SERVICE_PORT} + 363`"
-JAVA_OPTS=" ${JAVA_OPTS} -Dport.ajp=`expr ${SERVICE_PORT} - 71`"
-JAVA_OPTS=" ${JAVA_OPTS} -Dport.shutdown=`expr ${SERVICE_PORT} - 75`"
+JAVA_OPTS=" ${JAVA_OPTS} -Dport.https=${HTTPS_SERVICE_PORT}"
+JAVA_OPTS=" ${JAVA_OPTS} -Dport.ajp=${AJP_PORT}"
+JAVA_OPTS=" ${JAVA_OPTS} -Dport.shutdown=${SHUTDOWN_PORT}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dlog.home=${LOG_HOME}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dlat.home=${LAT_HOME}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dajp.address=${AJP_ADDRESS}"
