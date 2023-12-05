@@ -33,7 +33,7 @@ if [ -r ${JAVA_HOME}/lib/tools.jar ]; then
 fi
 
 ## Business System CLASSPATH (for your application)
-#CLASSPATH="${CLASSPATH}:${CATALINA_HOME}/lib/datasource/ojdbc6.jar"
+#CLASSPATH="${CLASSPATH}:${CATALINA_BASE}/lib/ojdbc6.jar"
 export CLASSPATH
 
 ## LIBRARY_PATH

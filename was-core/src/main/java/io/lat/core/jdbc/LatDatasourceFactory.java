@@ -1,18 +1,18 @@
 /*
-* Copyright 2022 LA:T Development Team.
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2022 LA:T Development Team.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 package io.lat.core.jdbc;
 
@@ -38,39 +38,46 @@ import io.lat.core.util.Encryptor;
 
 /**
  * encrypt datasource password
- * 
+ *
  * @author Erick Yu
  */
 public class LatDatasourceFactory extends DataSourceFactory {
 
-	private static final Log log = LogFactory.getLog(LatDatasourceFactory.class);
+    private static final Log log = LogFactory.getLog(LatDatasourceFactory.class);
 
-	private Encryptor encryptor = null;
+    public static final String PROP_PASSWORD_ENCRYPTED = "passwordEncrypted";
 
-	public LatDatasourceFactory() {
-		try {
-			encryptor = new Encryptor();
-		}
-		catch (Exception e) {
-			// Do Nothing
-		}
-	}
+    private Encryptor encryptor = null;
 
-	@Override
-	public DataSource createDataSource(Properties properties, Context context, boolean XA)
-			throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, NoSuchAlgorithmException, NoSuchPaddingException {
-		// Here we decrypt our password.
-		PoolConfiguration poolProperties = LatDatasourceFactory.parsePoolProperties(properties);
-		poolProperties.setPassword(encryptor.decrypt(poolProperties.getPassword()));
+    public LatDatasourceFactory() {
+        try {
+            encryptor = new Encryptor();
+        } catch (Exception e) {
+            // Do Nothing
+        }
+    }
 
-		// The rest of the code is copied from Tomcat's DataSourceFactory.
-		if (poolProperties.getDataSourceJNDI() != null && poolProperties.getDataSource() == null) {
-			performJNDILookup(context, poolProperties);
-		}
-		org.apache.tomcat.jdbc.pool.DataSource dataSource = XA ? new XADataSource(poolProperties) : new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
-		dataSource.createPool();
+    @Override
+    public DataSource createDataSource(Properties properties, Context context, boolean XA)
+            throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, SQLException, NoSuchAlgorithmException, NoSuchPaddingException {
+        // Here we decrypt our password.
+        PoolConfiguration poolProperties = LatDatasourceFactory.parsePoolProperties(properties);
+        if (isPasswordEncrypted(properties)) {
+            poolProperties.setPassword(encryptor.decrypt(poolProperties.getPassword()));
+        }
 
-		return dataSource;
-	}
+        // The rest of the code is copied from Tomcat's DataSourceFactory.
+        if (poolProperties.getDataSourceJNDI() != null && poolProperties.getDataSource() == null) {
+            performJNDILookup(context, poolProperties);
+        }
+        org.apache.tomcat.jdbc.pool.DataSource dataSource = XA ? new XADataSource(poolProperties) : new org.apache.tomcat.jdbc.pool.DataSource(poolProperties);
+        dataSource.createPool();
+
+        return dataSource;
+    }
+
+    public boolean isPasswordEncrypted(Properties properties) {
+        return Boolean.parseBoolean(properties.getProperty(PROP_PASSWORD_ENCRYPTED, "false"));
+    }
 
 }
