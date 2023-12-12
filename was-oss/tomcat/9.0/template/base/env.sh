@@ -13,6 +13,7 @@ export JVM_MIN_HEAP_SIZE=2048
 export INSTALL_PATH=/apps/lat/1.0.0/instances/lat-was-8080
 export RUN_USER=tomcat
 export DATE=`date +%Y%m%d-%H%M%S`
+export DATE_YMD=`date +%Y%m%d`
 export JVM_ROUTE=lat_7000
 export SHUTDOWN_TIMEOUT=86400
 export SHUTDOWN_ARGUMENTS="${SHUTDOWN_TIMEOUT} -force"
@@ -30,7 +31,7 @@ export LOG_HOME=${INSTALL_PATH}/logs
 export LOG_MAX_DAYS=0
 export DUMP_HOME=${LOG_HOME}
 export CATALINA_OUT_HOME=${LOG_HOME}
-export CATALINA_OUT=${CATALINA_OUT_HOME}/${INST_NAME}_${DATE}.log
+export CATALINA_OUT=${CATALINA_OUT_HOME}/${INST_NAME}_${DATE_YMD}.log
 
 export CATALINA_PID=${CATALINA_BASE}/${INST_NAME}.pid
 
