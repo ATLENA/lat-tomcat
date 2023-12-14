@@ -18,12 +18,22 @@
         <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format><!-- yyyyMMdd-HHmm -->
         <lat-all-work.workDir>${project.build.directory}/tomcat</lat-all-work.workDir>
         <lat-all-work.editionName>open-edition</lat-all-work.editionName>
-        <lat-runtime.version>${tomcat.version}.A.RELEASE</lat-runtime.version>
-        <lat-runtime.finalName>tomcat-${lat-runtime.version}</lat-runtime.finalName>
+        <lat-runtime.version>${tomcat.version}</lat-runtime.version>
+        <lat-runtime.module>module_name</lat-runtime.module>
+        <lat-runtime.finalName>tomcat-${lat-runtime.version}-runtime</lat-runtime.finalName>
+        <!--      tomcat-runtime.module exist  -->
+        <!--        <lat-runtime.finalName>tomcat-${lat-runtime.version}_${lat-runtime.module}-runtime</lat-runtime.finalName>-->
         <lat-runtime.outputDir>${lat-all-work.workDir}/runtime</lat-runtime.outputDir>
-        <lat-template.version>${tomcat.major.version}.A.RELEASE</lat-template.version>
-        <lat-template.finalName>tomcat-${lat-template.version}</lat-template.finalName>
+        <lat-template.version>${tomcat.version}</lat-template.version>
+        <lat-template.finalName>tomcat-${lat-template.version}-template</lat-template.finalName>
         <lat-template.outputDir>${lat-all-work.workDir}/template</lat-template.outputDir>
+
+<!--        <lat-runtime.version>${tomcat.version}.A.RELEASE</lat-runtime.version>-->
+<!--        <lat-runtime.finalName>tomcat-${lat-runtime.version}</lat-runtime.finalName>-->
+<!--        <lat-runtime.outputDir>${lat-all-work.workDir}/runtime</lat-runtime.outputDir>-->
+<!--        <lat-template.version>${tomcat.major.version}.A.RELEASE</lat-template.version>-->
+<!--        <lat-template.finalName>tomcat-${lat-template.version}</lat-template.finalName>-->
+<!--        <lat-template.outputDir>${lat-all-work.workDir}/template</lat-template.outputDir>-->
     </properties>
 
     <dependencies>
