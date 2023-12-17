@@ -21,7 +21,7 @@ export SHUTDOWN_ARGUMENTS="${SHUTDOWN_TIMEOUT} -force"
 ## Catalina Environment (don't modify them)
 export PATH="${PATH}":.
 export ENGN_VERSION="1.0.0.A.RELEASE"
-export ENGN_HOME="${LAT_HOME}/engines/runtime/tomcat/tomcat-${ENGN_VERSION}"
+export ENGN_HOME="${LAT_HOME}/engines/runtime/tomcat/${ENGN_VERSION}"
 export CATALINA_HOME=${ENGN_HOME}
 
 export CATALINA_BASE=${INSTALL_PATH}
