@@ -27,7 +27,7 @@
     <fileSets>
 
         <fileSet>
-            <directory>../was-oss/tomcat/${tomcat.major.version}/template</directory>
+            <directory>../was-oss/tomcat/${tomcat.major.version}/template/${tomcat.version}</directory>
             <includes>
                 <include>base/**</include>
             </includes>

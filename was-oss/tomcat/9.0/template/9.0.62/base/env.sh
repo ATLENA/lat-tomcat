@@ -20,8 +20,9 @@ export SHUTDOWN_ARGUMENTS="${SHUTDOWN_TIMEOUT} -force"
 
 ## Catalina Environment (don't modify them)
 export PATH="${PATH}":.
-export ENGN_VERSION="1.0.0.A.RELEASE"
-export ENGN_HOME="${LAT_HOME}/engines/runtime/tomcat/tomcat-${ENGN_VERSION}"
+export ENGN_VERSION="1.0.0"
+export ENGN_HOME="${LAT_HOME}/engines/runtime/tomcat/${ENGN_VERSION}"
+export TEMPLATE_VERSION="1.0.0"
 export CATALINA_HOME=${ENGN_HOME}
 
 export CATALINA_BASE=${INSTALL_PATH}
@@ -40,7 +41,9 @@ export AJP_SECRET=LAT_AJP_SECRET
 
 ## LA:T Server Configuration
 export ADVERTISER_LIB_PATH=`ls -t ${CATALINA_HOME}/lib/lena-advertiser-*.jar | head -n1`
-export CATALINA_OPTS=" ${CATALINA_OPTS} -javaagent:${ADVERTISER_LIB_PATH}"
+export CATALINA_OPTS=" -javaagent:${ADVERTISER_LIB_PATH}"
+#export CATALINA_OPTS=" ${CATALINA_OPTS} -javaagent:${INSTALL_PATH}/lib/core-1.0.jar"
+#export CATALINA_OPTS=" ${CATALINA_OPTS} -Djamon.properties=${INSTALL_PATH}/conf/jamon.properties"
 export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlena.name=${INSTANCE_ID}"
 export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlena.config=${INSTALL_PATH}/conf/advertiser.conf"
 export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlat.name=${INSTANCE_ID}"
