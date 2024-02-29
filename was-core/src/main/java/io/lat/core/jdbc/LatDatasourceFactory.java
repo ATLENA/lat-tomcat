@@ -20,12 +20,16 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.Hashtable;
 import java.util.Properties;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.naming.Context;
+import javax.naming.Name;
+import javax.naming.RefAddr;
+import javax.naming.Reference;
 
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
@@ -46,7 +50,9 @@ public class LatDatasourceFactory extends DataSourceFactory {
     private static final Log log = LogFactory.getLog(LatDatasourceFactory.class);
 
     public static final String PROP_PASSWORD_ENCRYPTED = "passwordEncrypted";
-
+    protected static final String[] ALL_LAT_PROPERTIES = {
+            PROP_PASSWORD_ENCRYPTED
+    };
     private Encryptor encryptor = null;
 
     public LatDatasourceFactory() {
@@ -55,6 +61,58 @@ public class LatDatasourceFactory extends DataSourceFactory {
         } catch (Exception e) {
             // Do Nothing
         }
+    }
+
+    @Override
+    public Object getObjectInstance(Object obj, Name name, Context nameCtx,
+                                    Hashtable<?,?> environment) throws Exception {
+
+        // We only know how to deal with <code>javax.naming.Reference</code>s
+        // that specify a class name of "javax.sql.DataSource"
+        if ((obj == null) || !(obj instanceof Reference)) {
+            return null;
+        }
+        Reference ref = (Reference) obj;
+        boolean XA = false;
+        boolean ok = false;
+        if ("javax.sql.DataSource".equals(ref.getClassName())) {
+            ok = true;
+        }
+        if ("javax.sql.XADataSource".equals(ref.getClassName())) {
+            ok = true;
+            XA = true;
+        }
+        if (org.apache.tomcat.jdbc.pool.DataSource.class.getName().equals(ref.getClassName())) {
+            ok = true;
+        }
+
+        if (!ok) {
+            log.warn(ref.getClassName()+" is not a valid class name/type for this JNDI factory.");
+            return null;
+        }
+
+        Properties properties = new Properties();
+        for (int i = 0; i < ALL_PROPERTIES.length; i++) {
+            String propertyName = ALL_PROPERTIES[i];
+            RefAddr ra = ref.get(propertyName);
+            if (ra != null) {
+                String propertyValue = ra.getContent().toString();
+                properties.setProperty(propertyName, propertyValue);
+            }
+        }
+
+        /* changed code */
+        for (int i = 0; i < ALL_LAT_PROPERTIES.length; i++) {
+            String propertyName = ALL_LAT_PROPERTIES[i];
+            RefAddr ra = ref.get(propertyName);
+            if (ra != null) {
+                String propertyValue = ra.getContent().toString();
+                properties.setProperty(propertyName, propertyValue);
+            }
+        }
+        /* changed code */
+
+        return createDataSource(properties,nameCtx,XA);
     }
 
     @Override
