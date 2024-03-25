@@ -27,7 +27,7 @@ export CATALINA_HOME=${ENGN_HOME}
 
 export CATALINA_BASE=${INSTALL_PATH}
 
-export INST_NAME=${INSTANCE_ID}_`hostname`
+export INST_NAME=${INSTANCE_ID}
 export LOG_HOME=${INSTALL_PATH}/logs
 export LOG_MAX_DAYS=0
 export DUMP_HOME=${LOG_HOME}
