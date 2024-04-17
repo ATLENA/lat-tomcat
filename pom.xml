@@ -22,7 +22,7 @@
     <profiles>
         <!-- build for Tomcat 8.5.x -->
         <profile>
-            <id>tomcat8</id>
+            <id>tomcat_8.5.78</id>
             <properties>
                 <java.version>1.8</java.version>
                 <tomcat.version>8.5.78</tomcat.version>
@@ -38,7 +38,7 @@
         </profile>
         <!-- build for Tomcat 9 -->
         <profile>
-            <id>tomcat9</id>
+            <id>tomcat_9.0.62</id>
             <activation>
                 <jdk>1.8</jdk>
                 <activeByDefault>true</activeByDefault>
@@ -46,6 +46,23 @@
             <properties>
                 <java.version>1.8</java.version>
                 <tomcat.version>9.0.62</tomcat.version>
+                <tomcat.major.version>9.0</tomcat.major.version>
+                <sonar.projectKey>ATLENA_lat-tomcat</sonar.projectKey>
+                <sonar.moduleKey>${artifactId}</sonar.moduleKey>
+                <sonar.organization>atlena</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+                <sonar.coverage.exclusions>**/filters/**/*</sonar.coverage.exclusions>
+            </properties>
+        </profile>
+        <profile>
+            <id>tomcat_9.0.87</id>
+            <activation>
+                <jdk>1.8</jdk>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <java.version>1.8</java.version>
+                <tomcat.version>9.0.87</tomcat.version>
                 <tomcat.major.version>9.0</tomcat.major.version>
                 <sonar.projectKey>ATLENA_lat-tomcat</sonar.projectKey>
                 <sonar.moduleKey>${artifactId}</sonar.moduleKey>
