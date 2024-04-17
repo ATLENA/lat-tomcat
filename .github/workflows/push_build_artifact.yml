@@ -2,7 +2,7 @@ name: Build Web Application Server and release
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ feature/9.0.87 ]
+    branches: [ master ]
 jobs:
   build:
     name: Build
