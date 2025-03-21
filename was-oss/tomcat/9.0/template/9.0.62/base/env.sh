@@ -2,7 +2,7 @@
 
 ## Business System Base Environment (modify them)
 export JAVA_HOME=/usr/bin/java
-export LAT_HOME=/apps/lat/1.0.0
+export OPENLENA_HOME=/apps/lat/1.0.0
 export INSTANCE_ID=lat
 export SERVICE_PORT=7000
 export HTTPS_SERVICE_PORT=`expr ${SERVICE_PORT} + 363`
@@ -21,7 +21,7 @@ export SHUTDOWN_ARGUMENTS="${SHUTDOWN_TIMEOUT} -force"
 ## Catalina Environment (don't modify them)
 export PATH="${PATH}":.
 export ENGN_VERSION="1.0.0"
-export ENGN_HOME="${LAT_HOME}/engines/runtime/tomcat/${ENGN_VERSION}"
+export ENGN_HOME="${OPENLENA_HOME}/engines/runtime/tomcat/${ENGN_VERSION}"
 export TEMPLATE_VERSION="1.0.0"
 export CATALINA_HOME=${ENGN_HOME}
 
@@ -37,7 +37,7 @@ export CATALINA_OUT=${CATALINA_OUT_HOME}/${INST_NAME}_${DATE_YMD}.log
 export CATALINA_PID=${CATALINA_BASE}/${INSTANCE_ID}.pid
 
 export AJP_ADDRESS=127.0.0.1
-export AJP_SECRET=LAT_AJP_SECRET
+export AJP_SECRET=OPENLENA_AJP_SECRET
 
 ## LA:T Server Configuration
 export ADVERTISER_LIB_PATH=`ls -t ${CATALINA_HOME}/lib/lena-advertiser-*.jar | head -n1`
@@ -66,7 +66,7 @@ JAVA_OPTS=" ${JAVA_OPTS} -Dport.https=${HTTPS_SERVICE_PORT}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dport.ajp=${AJP_PORT}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dport.shutdown=${SHUTDOWN_PORT}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dlog.home=${LOG_HOME}"
-JAVA_OPTS=" ${JAVA_OPTS} -Dlat.home=${LAT_HOME}"
+JAVA_OPTS=" ${JAVA_OPTS} -Dlat.home=${OPENLENA_HOME}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dajp.address=${AJP_ADDRESS}"
 JAVA_OPTS=" ${JAVA_OPTS} -Dajp.secret=${AJP_SECRET}"
 JAVA_OPTS=" ${JAVA_OPTS} -Djdk.attach.allowAttachSelf=true"

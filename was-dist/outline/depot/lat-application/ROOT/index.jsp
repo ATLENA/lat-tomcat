@@ -31,7 +31,7 @@ private boolean hasEnterpriseFeature(){
 }
 %>
 <%
-if ("lat-manager".equals(System.getProperty("lat.name"))) {
+if ("manager".equals(System.getProperty("lat.name"))) {
 	response.sendRedirect("/lat");
 }
 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy");

@@ -4,5 +4,5 @@ SCRIPTPATH=`cd $(dirname $0) ; pwd -P`
 
 . ${SCRIPTPATH}/env.sh
 
-${LAT_HOME}/latctl.sh start tomcat ${INSTANCE_ID}
+${OPENLENA_HOME}/ctl.sh start tomcat ${INSTANCE_ID}
 

@@ -19,7 +19,7 @@ echo "*  LA:T Server Management !      *"
 echo "*******************************"
 
 RUNDIR=$(dirname "$0")
-LAT_HOME=$(
+OPENLENA_HOME=$(
   cd "$RUNDIR/.."
   pwd -P
 )
@@ -28,8 +28,8 @@ HOSTNAME=$(hostname)
 COMMAND="$1"
 SERVER_TYPE="$2"
 IS_DEBUG_ENABLED="false"
-LAT_LOG_HOME=${LAT_HOME}/logs
-LOG_HOME=${LAT_LOG_HOME}/lat-installer
+OPENLENA_LOG_HOME=${OPENLENA_HOME}/logs
+LOG_HOME=${OPENLENA_LOG_HOME}/installer
 
 debug() {
   if [ "${IS_DEBUG_ENABLED}" = "true" ]; then
@@ -58,9 +58,9 @@ end_abort() {
 
 check_process() {
   if [ "$(uname -s)" = "HP-UX" ]; then
-    local is_alive=$(ps -efx | grep "lat.home=${LAT_HOME}" | grep "argo.install" | wc -l)
+    local is_alive=$(ps -efx | grep "lat.home=${OPENLENA_HOME}" | grep "argo.install" | wc -l)
   else
-    local is_alive=$(ps -ef | grep "lat.home=${LAT_HOME}" | grep "argo.install" | wc -l)
+    local is_alive=$(ps -ef | grep "lat.home=${OPENLENA_HOME}" | grep "argo.install" | wc -l)
   fi
 
   if [ ${is_alive} -ne 0 ]; then
@@ -92,7 +92,7 @@ is_valid_javahome() {
 save_javahome_info() {
   local _javahome=$1
   if is_valid_javahome ${_javahome}; then
-    echo ${_javahome} >${LAT_HOME}/etc/info/java-home.info
+    echo ${_javahome} >${OPENLENA_HOME}/etc/info/java-home.info
   else
     echo "JAVA_HOME is invalid. Please check if jdk is installed."
     end_fail
@@ -100,8 +100,8 @@ save_javahome_info() {
 }
 
 check_javahome() {
-  if [ -r "${LAT_HOME}/etc/info/java-home.info" ]; then
-    info_java_path=$(cat "${LAT_HOME}/etc/info/java-home.info")
+  if [ -r "${OPENLENA_HOME}/etc/info/java-home.info" ]; then
+    info_java_path=$(cat "${OPENLENA_HOME}/etc/info/java-home.info")
     if is_valid_javahome ${info_java_path}; then
       export JAVA_HOME=${info_java_path}
       return
@@ -120,7 +120,7 @@ check_javahome() {
     if is_valid_javahome ${input_java_path}; then
       echo "JAVA_HOME is valid."
       export JAVA_HOME=${input_java_path}
-      echo "${input_java_path}" >> ${LAT_HOME}/etc/info/java-home.info
+      echo "${input_java_path}" >> ${OPENLENA_HOME}/etc/info/java-home.info
       return
     else
       echo "JAVA_HOME is invalid. Please check if jdk is installed."
@@ -144,7 +144,7 @@ done
 check_javahome
 
 # set installer lib path
-INSTALLER_LIB_PATH=${LAT_HOME}/modules/lat-ctl/lib
+INSTALLER_LIB_PATH=${OPENLENA_HOME}/modules/ctl/lib
 list=$(ls ${INSTALLER_LIB_PATH}/*.jar)
 for i in $(echo $list); do
   INSTALLER_LIB_PATH=$INSTALLER_LIB_PATH:$i

@@ -19,15 +19,15 @@ echo "*  LA:T Server Management !      *"
 echo "*******************************"
 
 RUNDIR=$(dirname "$0")
-LAT_MANAGEMENT_HOME=$(
+OPENLENA_MANAGEMENT_HOME=$(
   cd "$RUNDIR/../../../../management/latctl"
   pwd -P
 )
-LAT_HOME=$(
+OPENLENA_HOME=$(
   cd "$RUNDIR/../../../.."
   pwd -P
 )
-LAT_ENGINE_HOME=$(
+OPENLENA_ENGINE_HOME=$(
   cd "$RUNDIR/../../.."
   pwd -P
 )
@@ -37,7 +37,7 @@ ENGN_VERSION=9.0.62
 RUN_USER=$(whoami)
 INSTANCE_TYPE="$1"
 INSTANCE_NAME="$2"
-INSTANCE_PATH="${LAT_HOME}/instances/${INSTANCE_TYPE}/${INSTANCE_NAME}"
+INSTANCE_PATH="${OPENLENA_HOME}/instances/${INSTANCE_TYPE}/${INSTANCE_NAME}"
 LOG_LEVEL=info
 LOG_DATE=`date +%Y%m%d`
 IS_DEBUG_ENABLED="false"
