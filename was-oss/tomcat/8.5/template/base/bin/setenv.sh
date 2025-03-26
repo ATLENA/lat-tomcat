@@ -1,9 +1,22 @@
+# Determine Java major version
+JAVA_VERSION_FULL=$("${JAVA_HOME}/bin/java" -version 2>&1 | awk -F '"' '/version/ {print $2}')
+JAVA_MAJOR_VERSION=$(echo "$JAVA_VERSION_FULL" | awk -F. '{if ($1 == "1") print $2; else print $1}')
+
 ## JVM Memory Options (tune them)
 CATALINA_OPTS=" ${CATALINA_OPTS} -Xms${JVM_MIN_HEAP_SIZE}m -Xmx${JVM_MAX_HEAP_SIZE}m"
 CATALINA_OPTS=" ${CATALINA_OPTS} -XX:MaxMetaspaceSize=256m"
-CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+UseParallelGC"
-CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+UseParallelOldGC"
-CATALINA_OPTS=" ${CATALINA_OPTS} -XX:-UseAdaptiveSizePolicy"
+
+# JVM GC Options based on Java version
+if [ "$JAVA_MAJOR_VERSION" -lt 16 ]; then
+  # JDK 8 ~ 15
+  CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+UseParallelGC"
+  CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+UseParallelOldGC"
+  CATALINA_OPTS=" ${CATALINA_OPTS} -XX:-UseAdaptiveSizePolicy"
+else
+  # Above JDK 16 (UseParallelOldGC removed)
+  CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+UseParallelGC"
+fi
+
 CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+ExplicitGCInvokesConcurrent"
 CATALINA_OPTS=" ${CATALINA_OPTS} -XX:+HeapDumpOnOutOfMemoryError"
 CATALINA_OPTS=" ${CATALINA_OPTS} -XX:HeapDumpPath=${DUMP_HOME}/hdump"
