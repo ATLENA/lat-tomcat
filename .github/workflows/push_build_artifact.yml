@@ -24,7 +24,7 @@ jobs:
           servers: ${{secrets.GH_MVN_REPO_USER_INFO}}
       # packaging project
       - name: Build with Maven
-        run: mvn -P tomcat_9.0.62 -B package --file pom.xml
+        run: mvn -P tomcat_9.0.87 -B package --file pom.xml
       # get project version
       - name: Bump Version
         id: get-version
