@@ -40,12 +40,11 @@ export AJP_ADDRESS=127.0.0.1
 export AJP_SECRET=OPENLENA_AJP_SECRET
 
 ## LA:T Server Configuration
-export ADVERTISER_LIB_PATH=`ls -t ${CATALINA_HOME}/lib/lena-advertiser-*.jar | head -n1`
+export ADVERTISER_LIB_PATH=`ls -t ${CATALINA_HOME}/lib/openLena-advertiser-*.jar | head -n1`
 export CATALINA_OPTS=" -javaagent:${ADVERTISER_LIB_PATH}"
-#export CATALINA_OPTS=" ${CATALINA_OPTS} -javaagent:${INSTALL_PATH}/lib/core-1.1.0.jar"
-#export CATALINA_OPTS=" ${CATALINA_OPTS} -Ddolly.properties=${INSTALL_PATH}/conf/dolly.properties"
+export CATALINA_OPTS=" ${CATALINA_OPTS} -Dnode.uuid.path=${OPENLENA_HOME}/management/etc/info/agent-uuid.info"
 export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlena.name=${INSTANCE_ID}"
-export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlena.config=${INSTALL_PATH}/conf/advertiser.conf"
+export CATALINA_OPTS=" ${CATALINA_OPTS} -DopenLena.config=${INSTALL_PATH}/conf/advertiser.conf"
 export CATALINA_OPTS=" ${CATALINA_OPTS} -Dlat.name=${INSTANCE_ID}"
 
 
